@@ -1,8 +1,8 @@
-resource "azurerm_virtual_machine" "main" {
+resource "azurerm_virtual_machine" "example" {
   name                  = "${var.prefix}-vm"
   location              = data.azurerm_resource_group.example.location
   resource_group_name   = data.azurerm_resource_group.example.name
-  network_interface_ids = [azurerm_network_interface.main.id]
+  network_interface_ids = [azurerm_network_interface.example.id]
   vm_size               = var.vm_size
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
@@ -38,7 +38,7 @@ resource "azurerm_virtual_machine" "main" {
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
-      host     = azurerm_network_interface.main.private_ip_address
+      host     = azurerm_network_interface.example.private_ip_address
       user     = "testadmin"
       password = "Password1234!"
     }
@@ -54,7 +54,7 @@ resource "azurerm_virtual_machine" "main" {
     destination = "/usr/share/nginx/html/index.html"
     connection {
       type     = "ssh"
-      host     = azurerm_network_interface.main.private_ip_address
+      host     = azurerm_network_interface.example.private_ip_address
       user     = "testadmin"
       password = "Password1234!"
     }
